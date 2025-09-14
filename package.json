@@ -1,0 +1,30 @@
+{
+  "name": "tdlibkit",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "node --import \"data:text/javascript,import { register } from 'node:module'; import { pathToFileURL } from 'node:url'; register('./file-loader.mjs', pathToFileURL('./'))\" src/index.ts --debug",
+    "build": "tsup src/index.ts",
+    "lint": "eslint .",
+    "start": "node --enable-source-maps dist/index.js"
+  },
+  "devDependencies": {
+    "@types/node": "^20.5.2",
+    "@typescript-eslint/eslint-plugin": "^8.42.0",
+    "@typescript-eslint/parser": "^8.42.0",
+    "esbuild": "^0.25.9",
+    "eslint": "^9.0.0",
+    "jiti": "^2.5.1",
+    "tsup": "^8.0.0",
+    "typescript": "^5.5.0"
+  },
+  "dependencies": {
+    "dotenv": "^16.6.1",
+    "prebuilt-tdlib": "^0.1008052.1",
+    "remark-parse": "^11.0.0",
+    "systeminformation": "^5.27.8",
+    "tdl": "^8.0.2",
+    "unified": "^11.0.5",
+    "winston": "^3.17.0"
+  }
+}
