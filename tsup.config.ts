@@ -7,17 +7,10 @@ import crypto from "crypto";
 
 const mergedEnv: Record<string, string> = dotenv.config().parsed ?? {};
 
-function toUnicodeEscape(str: string) {
-  return str
-    .split("")
-    .map((c) => `\\u${c.charCodeAt(0).toString(16).padStart(4, "0")}`)
-    .join("");
-}
-
 const defineEnv = Object.fromEntries(
   Object.entries(mergedEnv).map(([k, v]) => [
     `process.env.${k}`,
-    JSON.stringify(toUnicodeEscape(v ?? "")),
+    JSON.stringify(v ?? ""),
   ])
 );
 
@@ -36,7 +29,7 @@ async function modifyPackageJson() {
   pkg.scripts = {
     start: "node --enable-source-maps index.js",
     debug: "node --enable-source-maps index.js --debug",
-    pm2: "pm2 start index.js --name \"xiaoqvan-anime-bot\" --node-args='--enable-source-maps'",
+    pm2: `pm2 start index.js --name "${pkg.name}" --node-args='--enable-source-maps'`,
   };
 
   // 删除 devDependencies
@@ -107,6 +100,7 @@ export default defineConfig({
   clean: false,
   publicDir: "resource",
   minify: true,
+  skipNodeModulesBundle: true,
   esbuildPlugins: [filePlugin()],
   define: {
     ...defineEnv,

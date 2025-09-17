@@ -1,5 +1,6 @@
 import type { updateAuthorizationState as Td$updateAuthorizationState } from "tdlib-types";
 import logger from "../../log/index.ts";
+import { getMe } from "../function/get.ts";
 
 export default async function updateAuthorizationState(
   update: Td$updateAuthorizationState
@@ -49,6 +50,7 @@ export default async function updateAuthorizationState(
       break;
     case "authorizationStateReady":
       logger.info(`授权状态更新: 已登录(${update.authorization_state._})`);
+      getMeInfo();
       break;
     case "authorizationStateLoggingOut":
       logger.info(
@@ -65,5 +67,21 @@ export default async function updateAuthorizationState(
         `授权状态更新: TDLib 已关闭，所有数据库都已关闭，所有资源都已释放，所有查询都将以错误代码 500 进行响应(${update.authorization_state._})`
       );
       break;
+  }
+}
+async function getMeInfo() {
+  const me = await getMe();
+
+  if (me && me.usernames && me.type._ === "userTypeBot") {
+    logger.info(
+      `Bot 已登录: ${me.first_name}${me.last_name} (@${me.usernames.active_usernames[0]} - ID:${me.id})`
+    );
+  }
+  if (me && me.usernames && me.type._ === "userTypeRegular") {
+    logger.info(
+      `用户 ${me.first_name}${me.last_name} 已登录: (@${
+        me.usernames.active_usernames[0] || null
+      } - ID:${me.id})`
+    );
   }
 }

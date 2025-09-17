@@ -19,11 +19,14 @@
     "typescript": "^5.5.0"
   },
   "dependencies": {
+    "@types/mdast": "^4.0.4",
+    "axios": "^1.12.2",
     "dotenv": "^16.6.1",
     "prebuilt-tdlib": "^0.1008052.1",
     "remark-parse": "^11.0.0",
     "systeminformation": "^5.27.8",
     "tdl": "^8.0.2",
+    "telegraph.js": "^1.0.0",
     "unified": "^11.0.5",
     "winston": "^3.17.0"
   }

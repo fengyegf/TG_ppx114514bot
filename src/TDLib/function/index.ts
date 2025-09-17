@@ -1,7 +1,4 @@
 import type {
-  formattedText$Input,
-  textEntity$Input,
-  TextEntityType$Input,
   MessageSender$Input,
   chatPermissions$Input,
   FileType$Input,
